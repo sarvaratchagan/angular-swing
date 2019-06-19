@@ -78,7 +78,14 @@ function swingCard() {
   };
 }
 
+function swingHelper() {
+    return {
+        Direction: Swing.Direction
+    };
+}
+
 angular
   .module(moduleName, [])
   .directive('swingStack', swingStack)
-  .directive('swingCard', swingCard);
+  .directive('swingCard', swingCard)
+    .factory('swingHelper', swingHelper);
