@@ -1,5 +1,4 @@
 "use strict";
-var angular = require('angular');
 var Swing = require('swing');
 var moduleName = 'gajus.swing';
 module.exports = moduleName;
