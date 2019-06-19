@@ -74,7 +74,7 @@ function swingCard() {
       swingOnDragmove: '&',
       swingOnDragend: '&'
     },
-    link: swingCardLink,
+    link: swingCardLink
   };
 }
 
