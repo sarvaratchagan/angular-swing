@@ -1,6 +1,6 @@
 angular
     .module('card-stack-demo', ['gajus.swing'])
-    .controller('card-stack-playground', function ($scope) {
+    .controller('card-stack-playground', function ($scope, swingHelper) {
         $scope.cards = [
             {name: 'clubs', symbol: '♣'},
             {name: 'diamonds', symbol: '♦'},
@@ -37,12 +37,23 @@ angular
         };
 
         $scope.options = {
-            throwOutConfidence: function (offset, elementWidth) {
-                console.log('throwOutConfidence', offset, elementWidth);
-                return Math.min(Math.abs(offset) / elementWidth, 1);
+            allowedDirections: [swingHelper.Direction.LEFT, swingHelper.Direction.RIGHT],
+            /**
+             * Invoked in the event of "dragmove".
+             * Returns a value between 0 and 1 indicating the completeness of the throw out condition.
+             * Ration of the absolute distance from the original card position and element width.
+             *
+             * @param {number} xOffset Distance from the dragStart.
+             * @param {number} yOffset Distance from the dragStart.
+             * @param {HTMLElement} element Element.
+             * @returns {number}
+             */
+            throwOutConfidence: function (xOffset, yOffset, element) {
+                const xConfidence = Math.min(Math.abs(xOffset) / element.offsetWidth, 1);
+                const yConfidence = Math.min(Math.abs(yOffset) / element.offsetHeight, 1);
+                return Math.max(xConfidence, yConfidence);
             },
-            isThrowOut: function (offset, elementWidth, throwOutConfidence) {
-                console.log('isThrowOut', offset, elementWidth, throwOutConfidence);
+            isThrowOut: function (xOffset, yOffset, element, throwOutConfidence) {
                 return throwOutConfidence === 1;
             }
         };
