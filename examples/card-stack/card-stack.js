@@ -1,43 +1,54 @@
 angular
     .module('card-stack-demo', ['gajus.swing'])
     .controller('card-stack-playground', function ($scope, swingHelper) {
+        var vm = this;
         $scope.cards = [
             {name: 'clubs', symbol: '♣'},
             {name: 'diamonds', symbol: '♦'},
             {name: 'hearts', symbol: '♥'},
             {name: 'spades', symbol: '♠'}
         ];
+        vm.stacks = {};
 
         $scope.throwout = function (eventName, eventObject) {
             console.log('throwout', eventObject);
+            console.log(vm.stacks);
         };
+
+        $scope.$watch(function () {
+            return vm.stacks;
+        }, function (newVal, oldVal) {
+            if (angular.equals(newVal, oldVal)) {
+                console.log(vm.stacks);
+            }
+        });
 
         $scope.throwoutleft = function (eventName, eventObject) {
             console.log('throwoutleft', eventObject);
         };
 
         $scope.throwoutright = function (eventName, eventObject) {
-            console.log('throwoutright', eventObject);
+            // console.log('throwoutright', eventObject);
         };
 
         $scope.throwin = function (eventName, eventObject) {
-            console.log('throwin', eventObject);
+            // console.log('throwin', eventObject);
         };
 
         $scope.dragstart = function (eventName, eventObject) {
-            console.log('dragstart', eventObject);
+            // console.log('dragstart', eventObject);
         };
 
         $scope.dragmove = function (eventName, eventObject) {
-            console.log('dragmove', eventObject);
+            // console.log('dragmove', eventObject);
         };
 
         $scope.dragend = function (eventName, eventObject) {
-            console.log('dragend', eventObject);
+            // console.log('dragend', eventObject);
         };
 
         $scope.options = {
-            allowedDirections: [swingHelper.Direction.LEFT, swingHelper.Direction.RIGHT],
+            allowedDirections: [swingHelper.Direction.UP, swingHelper.Direction.DOWN],
             /**
              * Invoked in the event of "dragmove".
              * Returns a value between 0 and 1 indicating the completeness of the throw out condition.
