@@ -4,3 +4,4 @@
 .npmrc
 npm-debug.log
 karma.conf.saucelabs.js
+.idea
