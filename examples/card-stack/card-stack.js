@@ -8,11 +8,17 @@ angular
             {name: 'hearts', symbol: '♥'},
             {name: 'spades', symbol: '♠'}
         ];
-        vm.stacks = {};
+        vm.swingStack = null;
 
-        $scope.throwout = function (eventName, eventObject) {
-            console.log('throwout', eventObject);
-            console.log(vm.stacks.getCard(eventObject.target));
+        $scope.throwout = function (eventName, eventObject, idx) {
+            console.log('throwout', eventObject, idx, vm.swingStack);
+        };
+
+        $scope.throwoutend = function (eventName, eventObject, idx) {
+            console.log('throwoutend', eventObject, idx, vm.swingStack);
+            $scope.$evalAsync(function() {
+              $scope.cards.splice(idx, 1);
+            });
         };
 
         $scope.throwoutleft = function (eventName, eventObject) {
@@ -60,4 +66,13 @@ angular
                 return throwOutConfidence === 1;
             }
         };
+
+        $scope.handleCard = function () {
+            var cards = document.querySelectorAll('.stack>li');
+            if (cards.length > 0) {
+                var card = vm.swingStack.getCard(cards[cards.length - 1]);
+                // console.log(vm.stacks);
+                card.throwOut(0, 0, swingHelper.Direction.UP);
+            }
+        }
     });

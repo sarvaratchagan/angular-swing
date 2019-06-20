@@ -11,10 +11,11 @@
 </head>
 <body ng-app="card-stack-demo">
     <div id="viewport" ng-controller="card-stack-playground as card">
-        <ul class="stack" swing-stack="card.stacks" swing-options="options">
+        <ul class="stack" swing-stack="card.swingStack" swing-options="options">
             <li
                 swing-card
-                swing-on-throwout="throwout(eventName, eventObject)"
+                swing-on-throwout="throwout(eventName, eventObject, $index)"
+                swing-on-throwoutend="throwoutend(eventName, eventObject, $index)"
                 swing-on-throwoutleft="throwoutleft(eventName, eventObject)"
                 swing-on-throwoutright="throwoutright(eventName, eventObject)"
                 swing-on-throwin="throwin(eventName, eventObject)"
@@ -23,6 +24,7 @@
                 swing-on-dragend="dragend(eventName, eventObject)"
                 ng-repeat="card in cards" ng-class="card.name">{{card.symbol}}</li>
         </ul>
+        <p><button ng-click="handleCard()">Throwout Card</button></p>
     </div>
     <div id="source">
         <p>Drag the playing cards out of the stack and let go. Dragging them beyond the desk will throw them out of the stack. If you drag too little and let go, the cards will spring back into place. You can throw cards back into the stack after you have thrown them out.</p>
