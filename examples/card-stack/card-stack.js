@@ -10,12 +10,12 @@ angular
         ];
         vm.swingStack = null;
 
-        $scope.throwout = function (eventName, eventObject, idx) {
-            console.log('throwout', eventObject, idx, vm.swingStack);
+        $scope.throwout = function (eventName, eventObject) {
+            console.log('throwout', eventObject);
         };
 
         $scope.throwoutend = function (eventName, eventObject, idx) {
-            console.log('throwoutend', eventObject, idx, vm.swingStack);
+            console.log('throwoutend', eventObject, idx);
             $scope.$evalAsync(function() {
               $scope.cards.splice(idx, 1);
             });
