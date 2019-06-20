@@ -64,13 +64,7 @@ function swingCardLink(scope, element, attrs, swingStack) {
 
     function addListener(eventName) {
         card.on(eventName, function (eventObject) {
-            // If you wrap your methods inside $scope.$apply you may face digest cycle that's why we removed this code from here
-            // scope.$apply(function () {
-            //     scope[ngName(eventName)]({
-            //         eventName: eventName,
-            //         eventObject: eventObject
-            //     });
-            // });
+            // If you wrap your methods inside $scope.$apply you may face digest cycle issues that's why we removed this code from here
             scope[ngName(eventName)]({
                 eventName: eventName,
                 eventObject: eventObject
@@ -117,4 +111,4 @@ angular
   .module(moduleName, [])
   .directive('swingStack', swingStack)
   .directive('swingCard', swingCard)
-    .factory('swingHelper', swingHelper);
+  .factory('swingHelper', swingHelper);
