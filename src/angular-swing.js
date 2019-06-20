@@ -7,21 +7,35 @@ function SwingStackController($scope, $element, $attrs, $parse) {
   var stack;
   var defaultOptions = {};
   var options = $parse($attrs.swingOptions)($scope);
-  angular.extend(defaultOptions, options);
-  stack = Swing.Stack(defaultOptions);
 
-  this.add = function(cardElement) {
-    return stack.createCard(cardElement);
+  this.add = addCardElement;
+
+  function bindComponent() {
+      var set = $parse($attrs['swingStack']).assign;
+      set($scope, stack);
   }
+
+  function addCardElement() {
+      return stack.createCard(cardElement);
+  }
+
+  function initComponent() {
+      angular.extend(defaultOptions, options);
+      stack = Swing.Stack(defaultOptions);
+      bindComponent();
+  }
+
+  initComponent();
+
 }
 
 SwingStackController.$inject = ['$scope', '$element', '$attrs', '$parse'];
 
 function swingStack() {
-  return {
-    restrict: 'A',
-    controller: SwingStackController
-  }
+    return {
+        restrict: 'A',
+        controller: SwingStackController
+    }
 }
 
 function ngName(eventName) {
@@ -51,7 +65,7 @@ function swingCardLink(scope, element, attrs, swingStack) {
       scope.$apply(function() {
         scope[ngName(eventName)]({
           eventName: eventName,
-          eventObject: eventObject,
+          eventObject: eventObject
         });
       });
     });
