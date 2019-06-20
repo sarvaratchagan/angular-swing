@@ -20,7 +20,7 @@ SwingStackController.$inject = ['$scope', '$element', '$attrs', '$parse'];
 function swingStack() {
   return {
     restrict: 'A',
-    controller: SwingStackController,
+    controller: SwingStackController
   }
 }
 
@@ -34,9 +34,13 @@ function swingCardLink(scope, element, attrs, swingStack) {
   var card = swingStack.add(element[0]);
   var events = [
     'throwout',
+    'throwoutend',
     'throwoutleft',
     'throwoutright',
+    'throwoutup',
+    'throwoutdown',
     'throwin',
+    'throwinend',
     'dragstart',
     'dragmove',
     'dragend'
@@ -67,9 +71,13 @@ function swingCard() {
     require: '^swingStack',
     scope: {
       swingOnThrowout: '&',
+      swingOnThrowoutend: '&',
       swingOnThrowoutleft: '&',
       swingOnThrowoutright: '&',
+      swingOnThrowoutup: '&',
+      swingOnThrowoutdown: '&',
       swingOnThrowin: '&',
+      swingOnThrowinend: '&',
       swingOnDragstart: '&',
       swingOnDragmove: '&',
       swingOnDragend: '&'
