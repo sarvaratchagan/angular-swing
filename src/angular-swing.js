@@ -11,8 +11,10 @@ function SwingStackController($scope, $element, $attrs, $parse) {
   this.add = addCardElement;
 
   function bindComponent() {
-      var set = $parse($attrs['swingStack']).assign;
-      set($scope, stack);
+      if ($attrs.swingStack) {
+          var set = $parse($attrs['swingStack']).assign;
+          set($scope, stack);
+      }
   }
 
   function addCardElement(cardElement) {
@@ -60,16 +62,21 @@ function swingCardLink(scope, element, attrs, swingStack) {
     'dragend'
   ];
 
-  function addListener(eventName) {
-    card.on(eventName, function(eventObject) {
-      scope.$apply(function() {
-        scope[ngName(eventName)]({
-          eventName: eventName,
-          eventObject: eventObject
+    function addListener(eventName) {
+        card.on(eventName, function (eventObject) {
+            // If you wrap your methods inside $scope.$apply you may face digest cycle that's why we removed this code from here
+            // scope.$apply(function () {
+            //     scope[ngName(eventName)]({
+            //         eventName: eventName,
+            //         eventObject: eventObject
+            //     });
+            // });
+            scope[ngName(eventName)]({
+                eventName: eventName,
+                eventObject: eventObject
+            });
         });
-      });
-    });
-  }
+    }
 
   // Map all Swing events to the scope expression.
   // Map eventObject variable name to the expression wrapper fn.
