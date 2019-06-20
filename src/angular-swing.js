@@ -15,7 +15,7 @@ function SwingStackController($scope, $element, $attrs, $parse) {
       set($scope, stack);
   }
 
-  function addCardElement() {
+  function addCardElement(cardElement) {
       return stack.createCard(cardElement);
   }
 
