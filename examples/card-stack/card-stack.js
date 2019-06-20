@@ -12,16 +12,8 @@ angular
 
         $scope.throwout = function (eventName, eventObject) {
             console.log('throwout', eventObject);
-            console.log(vm.stacks);
+            console.log(vm.stacks.getCard(eventObject.target));
         };
-
-        $scope.$watch(function () {
-            return vm.stacks;
-        }, function (newVal, oldVal) {
-            if (angular.equals(newVal, oldVal)) {
-                console.log(vm.stacks);
-            }
-        });
 
         $scope.throwoutleft = function (eventName, eventObject) {
             console.log('throwoutleft', eventObject);
