@@ -1,6 +1,6 @@
 angular
     .module('card-stack-demo', ['gajus.swing'])
-    .controller('card-stack-playground', function ($scope, swingHelper) {
+    .controller('card-stack-playground', function ($scope, swingHelper, $timeout) {
         var vm = this;
         $scope.cards = [
             {name: 'clubs', symbol: '♣'},
@@ -15,10 +15,12 @@ angular
         };
 
         $scope.throwoutend = function (eventName, eventObject, idx) {
-            console.log('throwoutend', eventObject, idx);
-            $scope.$evalAsync(function() {
-              $scope.cards.splice(idx, 1);
-            });
+            console.log('throwoutend', eventObject);
+            $timeout(function() {
+                $scope.$evalAsync(function() {
+                    $scope.cards.splice(idx, 1);
+                });
+            }, 100);
         };
 
         $scope.throwoutleft = function (eventName, eventObject) {
@@ -46,7 +48,7 @@ angular
         };
 
         $scope.options = {
-            allowedDirections: [swingHelper.Direction.UP, swingHelper.Direction.DOWN],
+            allowedDirections: [swingHelper.Direction.LEFT, swingHelper.Direction.RIGHT],
             /**
              * Invoked in the event of "dragmove".
              * Returns a value between 0 and 1 indicating the completeness of the throw out condition.
@@ -70,9 +72,29 @@ angular
         $scope.handleCard = function () {
             var cards = document.querySelectorAll('.stack>li');
             if (cards.length > 0) {
-                var card = vm.swingStack.getCard(cards[cards.length - 1]);
-                // console.log(vm.stacks);
-                card.throwOut(0, 0, swingHelper.Direction.UP);
+                var element = cards[cards.length - 1];
+                var card = vm.swingStack.getCard(element);
+                // var offset = getOffset(element);
+                /**
+                 * Throws a card out of the stack in the direction away from the original offset.
+                 *
+                 * @param {number} coordinateX
+                 * @param {number} coordinateY
+                 * @param {Direction} [direction]
+                 * @returns {undefined}
+                 */
+                card.throwOut(600, 0, swingHelper.Direction.RIGHT);
             }
+        }
+
+        function getOffset( el ) {
+            var _x = 0;
+            var _y = 0;
+            while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+                _x += el.offsetLeft - el.scrollLeft;
+                _y += el.offsetTop - el.scrollTop;
+                el = el.offsetParent;
+            }
+            return { top: _y, left: _x };
         }
     });
