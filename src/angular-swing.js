@@ -3,7 +3,7 @@ var Swing = require('swing');
 var moduleName = 'gajus.swing';
 module.exports = moduleName;
 
-function SwingStackController($scope, $element, $attrs, $parse) {
+function SwingStackController($scope, $attrs, $parse) {
   var stack;
   var defaultOptions = {};
   var options = $parse($attrs.swingOptions)($scope);
@@ -31,9 +31,7 @@ function SwingStackController($scope, $element, $attrs, $parse) {
 
 }
 
-SwingStackController.$inject = ['$scope', '$element', '$attrs', '$parse'];
-
-function swingStack() {
+function SwingStack() {
     return {
         restrict: 'A',
         controller: SwingStackController
@@ -80,7 +78,7 @@ function swingCardLink(scope, element, attrs, swingStack) {
 
 swingCardLink.$inject = ['scope', 'element', 'attrs', 'swingStack'];
 
-function swingCard() {
+function SwingCard() {
   return {
     restrict: 'A',
     require: '^swingStack',
@@ -101,7 +99,7 @@ function swingCard() {
   };
 }
 
-function swingHelper() {
+function SwingHelper() {
     return {
         Direction: Swing.Direction
     };
@@ -109,6 +107,6 @@ function swingHelper() {
 
 angular
   .module(moduleName, [])
-  .directive('swingStack', swingStack)
-  .directive('swingCard', swingCard)
-  .factory('swingHelper', swingHelper);
+  .directive('swingStack', SwingStack)
+  .directive('swingCard', SwingCard)
+  .factory('SwingHelper', SwingHelper);

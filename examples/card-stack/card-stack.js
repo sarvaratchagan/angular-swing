@@ -1,6 +1,6 @@
 angular
     .module('card-stack-demo', ['gajus.swing'])
-    .controller('card-stack-playground', function ($scope, swingHelper, $timeout) {
+    .controller('card-stack-playground', function ($scope, SwingHelper, $timeout) {
         var vm = this;
         $scope.cards = [
             {name: 'clubs', symbol: '♣'},
@@ -48,7 +48,7 @@ angular
         };
 
         $scope.options = {
-            allowedDirections: [swingHelper.Direction.LEFT, swingHelper.Direction.RIGHT],
+            allowedDirections: [SwingHelper.Direction.LEFT, SwingHelper.Direction.RIGHT],
             /**
              * Invoked in the event of "dragmove".
              * Returns a value between 0 and 1 indicating the completeness of the throw out condition.
@@ -83,7 +83,7 @@ angular
                  * @param {Direction} [direction]
                  * @returns {undefined}
                  */
-                card.throwOut(600, 0, swingHelper.Direction.RIGHT);
+                card.throwOut(600, 0, SwingHelper.Direction.RIGHT);
             }
         }
 
