@@ -1,5 +1,5 @@
 /**
- * @version 2.1.1
+ * @version 2.1.2
  * @link https://github.com/gajus/angular-swing for the canonical source repository
  * @license https://github.com/gajus/angular-swing/blob/master/LICENSE BSD 3-Clause
  */
@@ -21987,11 +21987,12 @@ module.exports.dash = dashedPrefix;
 
 },{}],14:[function(require,module,exports){
 "use strict";
+SwingStackController.$inject = ["$scope", "$attrs", "$parse"];
 var Swing = require('swing');
 var moduleName = 'gajus.swing';
 module.exports = moduleName;
 
-function SwingStackController($scope, $element, $attrs, $parse) {
+function SwingStackController($scope, $attrs, $parse) {
   var stack;
   var defaultOptions = {};
   var options = $parse($attrs.swingOptions)($scope);
@@ -22019,9 +22020,7 @@ function SwingStackController($scope, $element, $attrs, $parse) {
 
 }
 
-SwingStackController.$inject = ['$scope', '$element', '$attrs', '$parse'];
-
-function swingStack() {
+function SwingStack() {
     return {
         restrict: 'A',
         controller: SwingStackController
@@ -22068,7 +22067,7 @@ function swingCardLink(scope, element, attrs, swingStack) {
 
 swingCardLink.$inject = ['scope', 'element', 'attrs', 'swingStack'];
 
-function swingCard() {
+function SwingCard() {
   return {
     restrict: 'A',
     require: '^swingStack',
@@ -22089,7 +22088,7 @@ function swingCard() {
   };
 }
 
-function swingHelper() {
+function SwingHelper() {
     return {
         Direction: Swing.Direction
     };
@@ -22097,8 +22096,8 @@ function swingHelper() {
 
 angular
   .module(moduleName, [])
-  .directive('swingStack', swingStack)
-  .directive('swingCard', swingCard)
-  .factory('swingHelper', swingHelper);
+  .directive('swingStack', SwingStack)
+  .directive('swingCard', SwingCard)
+  .factory('SwingHelper', SwingHelper);
 
 },{"swing":11}]},{},[14])
