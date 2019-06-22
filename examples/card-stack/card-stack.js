@@ -9,6 +9,7 @@ angular
             {name: 'spades', symbol: '♠'}
         ];
         vm.swingStack = null;
+        vm.swingCardPrepend = true;
 
         $scope.throwout = function (eventName, eventObject) {
             console.log('throwout', eventObject);
