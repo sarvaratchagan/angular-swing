@@ -7,6 +7,7 @@ function SwingStackController($scope, $attrs, $parse) {
   var stack;
   var defaultOptions = {};
   var options = $parse($attrs.swingOptions)($scope);
+  var prepend = $parse($attrs.swingCardPrepend)($scope) || false;
 
   this.add = addCardElement;
 
@@ -18,7 +19,7 @@ function SwingStackController($scope, $attrs, $parse) {
   }
 
   function addCardElement(cardElement) {
-      return stack.createCard(cardElement);
+      return stack.createCard(cardElement, prepend);
   }
 
   function initComponent() {
